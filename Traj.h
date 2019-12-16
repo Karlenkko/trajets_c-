@@ -9,7 +9,6 @@
 //---------- Interface de la classe <Traj> (fichier Traj.h) ----------------
 #if ! defined ( TRAJ_H )
 #define TRAJ_H
-#define MAP
 
 //--------------------------------------------------- Interfaces utilisées
 

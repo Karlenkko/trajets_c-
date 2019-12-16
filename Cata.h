@@ -10,7 +10,6 @@
 #if ! defined ( CATA_H )
 #define CATA_H
 #include "Traj.h"
-#define MAP
 //--------------------------------------------------- Interfaces utilisées
 
 //------------------------------------------------------------- Constantes

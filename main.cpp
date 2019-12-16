@@ -85,6 +85,9 @@ void ajouteTrajComp(Cata* ca){
 
 bool sauvegarde(Cata* cata, bool doitEtreSauvegarde(const Traj*))
 {
+#ifdef MAP
+	cout << "[DEBUG] Appel de sauvegarde" << endl;
+#endif
 	ofstream fic;
 	fic.open("Catalogue.csv");
 
@@ -154,7 +157,7 @@ int main(){
 						// Quand le trajet est un trajet simple, la méthode retourne true,
 						// false autrefois.
 						{
-
+							return false; //TODO
 						});
 						break;
 					case '3':
@@ -163,7 +166,7 @@ int main(){
 						// Quand le trajet est un trajet composé, la méthode retourne true,
 						// false autrefois.
 						{
-
+							return false; //TODO
 						});
 						break;
 					default:

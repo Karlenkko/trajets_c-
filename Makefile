@@ -11,6 +11,9 @@ main.o: ${REAL}
 exec: ${OBJ}
 	g++ ${CPPFLAGS} -o exec ${OBJ}
 
+debug: CPPFLAGS += -DMAP
+debug: all
+
 clean:
 	rm *.o
 

@@ -10,7 +10,6 @@
 #if ! defined ( TRAJCOMP_H )
 #define TRAJCOMP_H
 #include"Traj.h"
-#define MAP
 //--------------------------------------------------- Interfaces utilisées
 
 //------------------------------------------------------------- Constantes
