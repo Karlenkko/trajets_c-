@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstring>
+#include <fstream>
 #include "Traj.h"
 #include "TrajComp.h"
 #include "TrajSimp.h"
@@ -50,7 +51,6 @@ void ajouteTrajSimp(Cata* ca){
 	delete []arr;
 }  // ----- Fin de ajouteTrajSimp
 
-
 void ajouteTrajComp(Cata* ca){
 	int n;
 	cout<<"Composez le nombre de Trajet Simple contient le Trajet Compose."<<endl;
@@ -83,6 +83,20 @@ void ajouteTrajComp(Cata* ca){
 	delete [] l;  
 }  // ----- Fin de ajouteTrajComp
 
+bool sauvegarde(Cata* cata, bool doitEtreSauvegarde(const Traj*)) {
+	ofstream fic;
+	fic.open("Catalogue.csv");
+
+	const Traj** liste = cata -> getListe();
+	int i;
+	for (i = 0; i < cata -> getUsed(); i++) {
+		if (doitEtreSauvegarde(liste[i]) && fic.good()) fic << liste[i].toString() << endl;
+	}
+
+	fic.close();
+	return true;
+}  // ----- Fin de sauvegarde
+
 int main(){
 	int nbr=0,b=1;
 	char n;
@@ -95,7 +109,9 @@ int main(){
 		cout<<"3.Afficher des trajets qui sont deja existe dans la catalogue."<<endl;
 		cout<<"4.Chercher un trajets en utilisant le facon simple."<<endl;
 		cout<<"5.Chercher un trajets en utilisant le facon avancee."<<endl;
-		cout<<"6.Terminer."<<endl;
+		cout<<"6.Sauvegarder"<<endl;
+		cout<<"7.Telecharger"<<endl;
+		cout<<"8.Terminer."<<endl;
 		cin>>n;
 		switch(n){
 			case '1':
@@ -116,6 +132,24 @@ int main(){
 				chercherAva(ca);
 				break;
 			case '6':
+				cout<<"Composer les chiffres pour faire des instructions."<<endl;
+				cout<<"1.Sauvegarde toute la catalogue."<<endl;
+				cout<<"8.Terminer"<<endl;
+				cin>>n;
+				switch(n) {
+					case '1':
+						sauvegarde(ca, [](const Traj* trajet) -> bool
+						// Algorithme :
+						// Retourne true pour chaque trajet, n'importe quoi les attributes.
+						{
+							return true;
+						});
+						break;
+					default:
+						cout<<"input error"<<endl;
+						cin.clear();
+				}
+			case '8':
 				b=0;
 				for(int i=0;i<nbr;i++){
 					delete ca->getListe()[i];

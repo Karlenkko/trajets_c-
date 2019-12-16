@@ -67,6 +67,7 @@ public:
     int RechercherSimp(const char* Dep, const char* Arr);
     const Traj** getListe();
 	int RechercherAva(const char* Dep, const char* Arr);
+    int getUsed() const;
 
 //------------------------------------------------------------------ PRIVE
 

@@ -103,6 +103,11 @@ const Traj** Cata::getListe(){
 	return liste;
 }
 
+int Cata::getUsed() const
+{
+	return used;
+}
+
 int Cata::RechercherSimp(const char* Dep, const char* Arr){
 	int nbr=0;
 	
