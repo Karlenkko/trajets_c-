@@ -1,11 +1,11 @@
 #include <iostream>
 #include <cstring>
-#include <fstream>
 #include "Traj.h"
 #include "TrajComp.h"
 #include "TrajSimp.h"
 #include "Cata.h"
 using namespace std;
+
 
 void chercherSimp(Cata* ca){
 	char* dep=new char[20];
@@ -17,7 +17,7 @@ void chercherSimp(Cata* ca){
 	ca->RechercherSimp(dep,arr);
 	delete []dep;
 	delete []arr;
-} // ----- Fin de chercherSimp
+}
 
 void chercherAva(Cata* ca){
 	char* dep=new char[20];
@@ -29,7 +29,7 @@ void chercherAva(Cata* ca){
 	ca->RechercherAva(dep,arr);
 	delete []dep;
 	delete []arr;
-}  // ----- Fin de chercherAva
+}
 
 void ajouteTrajSimp(Cata* ca){
 	char* dep=new char[20];
@@ -49,7 +49,8 @@ void ajouteTrajSimp(Cata* ca){
 	ca->Ajouter(t);
 	delete []dep;
 	delete []arr;
-}  // ----- Fin de ajouteTrajSimp
+}
+
 
 void ajouteTrajComp(Cata* ca){
 	int n;
@@ -81,56 +82,12 @@ void ajouteTrajComp(Cata* ca){
 	delete []dep;
 	delete []arr;
 	delete [] l;  
-}  // ----- Fin de ajouteTrajComp
-
-bool sauvegarde(Cata* cata, char* nomFichier, bool doitEtreSauvegarde(const Traj*))
-// Mode d'emploi :
-// Sauvegarder un fichier csv de la même dossier comme cette application.
-// 
-// Contrat :
-// cata: instance d'objet Cata
-// nomFichier: nom du fichier pour sauvegarder (peut inclure un path)
-// doitEtreSauvegarde: fonctionne anonyme pour déterminer quels trajets devent être sauvegardé
-{
-#ifdef MAP
-	cout << "[DEBUG] Appel de sauvegarde" << endl;
-#endif
-	ofstream fic;
-	fic.open(nomFichier);
-
-	const Traj** liste = cata -> getListe();
-	int i;
-	for (i = 0; i < cata -> getUsed(); i++) {
-		if (doitEtreSauvegarde(liste[i]) && fic.good()) fic << liste[i].toString() << endl;
-	}
-
-	fic.close();
-	return true;
-}  // ----- Fin de sauvegarde
-
-bool telecharge(Cata* cata, char* nomFichier, bool doitEtreTelecharge(const Traj*))
-// Mode d'emploi :
-// Télécharger un fichier csv de la même dossier comme cette application.
-// 
-// Contrat :
-// cata: instance d'objet Cata
-// nomFichier: nom du fichier pour télécharger
-// doitEtreTelecharge: fonctionne anonyme pour déterminer quels trajets devent être téléchargé
-{
-#ifdef MAP
-	cout << "[DEBUG] Appel de telecharge" << endl;
-#endif
-	ifstream fic;
-	fic.open(nomFichier);
-
-	return true;
-} // ----- Fin de telecharge
+}
 
 int main(){
 	int nbr=0,b=1;
 	char n;
 	Cata* ca = new Cata();
-	char* nomFichier = "Catalogue.csv";
 	cout<<"<Catalogue de trajet>"<<endl;
 	while(b==1){
 		cout<<"Composer les chiffres pour faire des instructions."<<endl;
@@ -139,9 +96,7 @@ int main(){
 		cout<<"3.Afficher des trajets qui sont deja existe dans la catalogue."<<endl;
 		cout<<"4.Chercher un trajets en utilisant le facon simple."<<endl;
 		cout<<"5.Chercher un trajets en utilisant le facon avancee."<<endl;
-		cout<<"6.Sauvegarder"<<endl;
-		cout<<"7.Telecharger"<<endl;
-		cout<<"8.Terminer."<<endl;
+		cout<<"6.Terminer."<<endl;
 		cin>>n;
 		switch(n){
 			case '1':
@@ -162,62 +117,6 @@ int main(){
 				chercherAva(ca);
 				break;
 			case '6':
-				cout<<"Composer les chiffres pour faire des instructions."<<endl;
-				cout<<"1.Sauvegarde toute la catalogue."<<endl;
-				cout<<"2.Sauvegarde seulement les trajets simples"<<endl;
-				cout<<"3.Sauvegarde seulement les trajets composes"<<endl;
-				cout<<"8.Terminer"<<endl;
-				cin>>n;
-				switch(n) {
-					case '1':
-						sauvegarde(ca, nomFichier, [](const Traj* trajet) -> bool
-						// Algorithme :
-						// Retourne true pour chaque trajet, n'importe quoi les attributes.
-						{
-							return true;
-						});
-						break;
-					case '2':
-						sauvegarde(ca, nomFichier, [](const Traj* trajet) -> bool
-						// Algorithme :
-						// Quand le trajet est un trajet simple, la méthode retourne true,
-						// false autrefois.
-						{
-							return false; //TODO
-						});
-						break;
-					case '3':
-						sauvegarde(ca, nomFichier, [](const Traj* trajet) -> bool
-						// Algorithme :
-						// Quand le trajet est un trajet composé, la méthode retourne true,
-						// false autrefois.
-						{
-							return false; //TODO
-						});
-						break;
-					default:
-						cout<<"input error"<<endl;
-						cin.clear();
-				}
-			case '7':
-				cout<<"Composer les chiffres pour faire des instructions."<<endl;
-				cout<<"1.Telecharger tout le catalogue du fichier \"Catalogue.csv\"."<<endl;
-				cout<<"8.Terminer"<<endl;
-				cin>>n;
-				switch(n) {
-					case '1':
-						delete ca;
-						ca = new Cata();
-						telecharge(ca, nomFichier, [](const Traj* trajet) -> bool {
-							return true;
-						});
-						break;
-					default:
-						cout<<"input error"<<endl;
-						cin.clear();
-				}
-				break;
-			case '8':
 				b=0;
 				for(int i=0;i<nbr;i++){
 					delete ca->getListe()[i];
@@ -233,4 +132,4 @@ int main(){
 		}
 	}
 	return 0;
-} // ----- Fin de main
+}

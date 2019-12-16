@@ -103,8 +103,7 @@ const Traj** Cata::getListe(){
 	return liste;
 }
 
-int Cata::getUsed() const
-{
+int Cata::getUsed(){
 	return used;
 }
 
