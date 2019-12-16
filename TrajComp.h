@@ -9,6 +9,7 @@
 //---------- Interface de la classe <TrajComp> (fichier TrajComp.h) ----------------
 #if ! defined ( TRAJCOMP_H )
 #define TRAJCOMP_H
+#include <fstream>
 #include"Traj.h"
 #define MAP
 //--------------------------------------------------- Interfaces utilisées
@@ -73,13 +74,14 @@ public:
     // Contrat :
     // Non
     virtual void toString(ofstream fic) const;
+    virtual void toString1(ofstream fic) const;
     //virtual int sizeTraj()const;
     
 //------------------------------------------------------------------ PRIVE
 
 private:
 //----------------------------------------------------- Méthodes protégées
-		
+    
 //----------------------------------------------------- Attributs protégés
 	const Traj** liste;
 	int taille; //Noter la taille de la liste pour faciliter l'affichage.

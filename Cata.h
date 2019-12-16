@@ -10,7 +10,6 @@
 #if ! defined ( CATA_H )
 #define CATA_H
 #include "Traj.h"
-#define MAP
 //--------------------------------------------------- Interfaces utilisées
 
 //------------------------------------------------------------- Constantes
@@ -67,7 +66,7 @@ public:
     int RechercherSimp(const char* Dep, const char* Arr);
     const Traj** getListe();
 	int RechercherAva(const char* Dep, const char* Arr);
-	int getUsed();
+	int getUsed() const;
 //------------------------------------------------------------------ PRIVE
 
 protected:

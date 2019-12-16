@@ -53,7 +53,6 @@ Traj::Traj ( const Traj & unTraj )
 	int longeurArr = strlen(unTraj.villeArr);
 	this->villeArr =new char[longeurArr+1];
 	strcpy(this->villeArr,unTraj.villeArr);
-	this->toString();
 } //----- Fin de Traj (constructeur de copie)
 
 
@@ -70,7 +69,6 @@ Traj::Traj (const char* villeDep, const char* villeArr)
 	int longeurArr = strlen(villeArr);
 	this->villeArr =new char[longeurArr+1 ];
 	strcpy(this->villeArr,villeArr);
-	this->toString();
 } //----- Fin de Traj
 
 
@@ -83,7 +81,6 @@ Traj::~Traj()
 #endif
 	delete []villeDep;
 	delete []villeArr;
-	delete []strT;
 } //----- Fin de ~Traj
 
 void Traj::Afficher()const{

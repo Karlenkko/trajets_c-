@@ -78,7 +78,6 @@ TrajSimp::TrajSimp ( const TrajSimp & unTrajSimp )
 	strcpy(this->villeArr,unTrajSimp.villeArr);
 	this->mt=unTrajSimp.mt;
 	
-	this->toString();
 } //----- Fin de TrajSimp (constructeur de copie)
 
 
@@ -89,7 +88,6 @@ TrajSimp::TrajSimp (const char* villeDep, const char* villeArr, MOY_TRANS mt):Tr
 #ifdef MAP
     cout << "Appel au constructeur de <TrajSimp>" << endl;
 #endif
-	this->toString();
 	this->mt=mt;
 } //----- Fin de TrajSimp
 

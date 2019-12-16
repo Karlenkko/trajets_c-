@@ -9,7 +9,8 @@
 //---------- Interface de la classe <Traj> (fichier Traj.h) ----------------
 #if ! defined ( TRAJ_H )
 #define TRAJ_H
-#define MAP
+#include <iostream>
+#include <fstream>
 
 
 //--------------------------------------------------- Interfaces utilisées
@@ -79,17 +80,16 @@ public:
     // Contrat :
     // Non    
 	virtual void toString(ofstream fic) const;
-	virtual void toString1(ofstream fic) const;
+    virtual void toString1(ofstream fic) const;
 	//virtual int sizeTraj() const;
 //------------------------------------------------------------------ PRIVE
 
 protected:
 //----------------------------------------------------- Méthodes protégées
-	virtual void toString1(ofstream fic) const;
+	
 //----------------------------------------------------- Attributs protégés
 	char* villeDep;
 	char* villeArr;
-	char* strT;
 };
 
 //-------------------------------- Autres définitions dépendantes de <Traj>

@@ -9,8 +9,8 @@
 //---------- Interface de la classe <TrajSimp> (fichier TrajSimp.h) ----------------
 #if ! defined ( TRAJSIMP )
 #define TRAJSIMP_H
+#include <fstream>
 #include"Traj.h"
-#define MAP
 //--------------------------------------------------- Interfaces utilisées
 
 //------------------------------------------------------------- Constantes
@@ -69,12 +69,13 @@ public:
     // Contrat :
     // Non
     virtual void toString(ofstream fic) const;
+    virtual void toString1(ofstream fic) const;
 	//virtual int sizeTraj() const;
 //------------------------------------------------------------------ PRIVE
 
 protected:
 //----------------------------------------------------- Méthodes protégées
-
+    
 //----------------------------------------------------- Attributs protégés
 	MOY_TRANS mt;
 };

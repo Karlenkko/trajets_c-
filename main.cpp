@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstring>
+#include <fstream>
 #include "Traj.h"
 #include "TrajComp.h"
 #include "TrajSimp.h"
