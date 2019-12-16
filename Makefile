@@ -1,23 +1,16 @@
-CPPFLAGS =-ansi -pedantic –Wall –std=c++11
+CPPFLAGS=-ansi -pedantic –Wall –std=c++11
+REAl=main.cpp Traj.cpp TrajSimp.cpp TrajComp.cpp Cata.cpp
+OBJ=$(REAL:.cpp=.o)
+EXE=exec
 
-exec: main.o Traj.o TrajSimp.o TrajComp.o Cata.o
-	g++ -o exec main.o Traj.o TrajComp.o TrajSimp.o Cata.o  
+all: ${EXE} clean
 
-main.o: main.cpp
-	g++ -c  main.cpp
+main.o: ${REAL}
+	g++ ${CPPFLAGS} -c ${REAL}
 
-TrajComp.o:TrajComp.cpp TrajComp.h
-	g++ -c TrajComp.cpp
-
-TrajSimp.o:TrajSimp.cpp TrajSimp.h
-	g++ -c TrajSimp.cpp
-
-Traj.o:Traj.cpp Traj.h
-	g++ -c Traj.cpp 
-
-Cata.o:Cata.cpp Cata.h
-	g++ -c Cata.cpp 
+${EXE}: ${OBJ}
+	g++ ${CPPFLAGS} -o ${EXE} ${OBJ}
 
 clean:
-	rm exec main.o Traj.o TrajComp.o TrajSimp.o Cata.o
+	rm ${EXE} *.o
 
