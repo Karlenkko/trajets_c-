@@ -83,7 +83,8 @@ void ajouteTrajComp(Cata* ca){
 	delete [] l;  
 }  // ----- Fin de ajouteTrajComp
 
-bool sauvegarde(Cata* cata, bool doitEtreSauvegarde(const Traj*)) {
+bool sauvegarde(Cata* cata, bool doitEtreSauvegarde(const Traj*))
+{
 	ofstream fic;
 	fic.open("Catalogue.csv");
 
@@ -134,6 +135,8 @@ int main(){
 			case '6':
 				cout<<"Composer les chiffres pour faire des instructions."<<endl;
 				cout<<"1.Sauvegarde toute la catalogue."<<endl;
+				cout<<"2.Sauvegarde seulement les trajets simples"<<endl;
+				cout<<"3.Sauvegarde seulement les trajets composes"<<endl;
 				cout<<"8.Terminer"<<endl;
 				cin>>n;
 				switch(n) {
@@ -143,6 +146,24 @@ int main(){
 						// Retourne true pour chaque trajet, n'importe quoi les attributes.
 						{
 							return true;
+						});
+						break;
+					case '2':
+						sauvegarde(ca, [](const Traj* trajet) -> bool
+						// Algorithme :
+						// Quand le trajet est un trajet simple, la méthode retourne true,
+						// false autrefois.
+						{
+
+						});
+						break;
+					case '3':
+						sauvegarde(ca, [](const Traj* trajet) -> bool
+						// Algorithme :
+						// Quand le trajet est un trajet composé, la méthode retourne true,
+						// false autrefois.
+						{
+
 						});
 						break;
 					default:
