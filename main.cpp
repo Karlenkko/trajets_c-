@@ -82,12 +82,96 @@ void ajouteTrajComp(Cata* ca){
 	delete []dep;
 	delete []arr;
 	delete [] l;  
+
 }
+
+}  // ----- Fin de ajouteTrajComp
+
+bool sauvegarde(Cata* cata, string nomFichier, bool doitEtreSauvegarde(const Traj*))
+// Mode d'emploi :
+// Sauvegarder un fichier csv de la même dossier comme cette application.
+// 
+// Contrat :
+// cata: instance d'objet Cata
+// nomFichier: nom du fichier pour sauvegarder (peut inclure un path)
+// doitEtreSauvegarde: fonctionne anonyme pour déterminer quels trajets devent être sauvegardé
+{
+#ifdef MAP
+	cout << "[DEBUG] Appel de sauvegarde" << endl;
+#endif
+	ofstream fic;
+	fic.open(nomFichier);
+
+	const Traj** liste = cata -> getListe();
+	int i;
+	for (i = 0; i < cata -> getUsed(); i++) {
+		if (doitEtreSauvegarde(liste[i]) && fic.good()) {
+			liste[i].toString(fic);
+			fic << endl;
+		}
+	}
+
+	fic.close();
+	return true;
+}  // ----- Fin de sauvegarde
+
+bool telecharge(Cata* cata, string nomFichier, bool doitEtreTelecharge(const Traj*))
+// Mode d'emploi :
+// Télécharger un fichier csv de la même dossier comme cette application.
+// 
+// Contrat :
+// cata: instance d'objet Cata
+// nomFichier: nom du fichier pour télécharger
+// doitEtreTelecharge: fonctionne anonyme pour déterminer quels trajets devent être téléchargé
+{
+#ifdef MAP
+	cout << "[DEBUG] Appel de telecharge" << endl;
+#endif
+	ifstream fic;
+	fic.open(nomFichier);
+
+	string ligne;
+	getline(fic, ligne, '\n');
+	while (!fic.eof()) {
+		int cursor = ligne.find(';');
+		int nbrTrajets = stoi(ligne.substr(0, cursor));
+		ligne.erase(0, cursor + 1);
+
+		int currentTrajet;
+		for (currentTrajet = 0; currentTrajet < nbrTrajets; currentTrajet++) {
+			cursor = ligne.find(';');
+			string tmpDepart = ligne.substr(0, cursor);
+			ligne.erase(0, cursor + 1);
+
+			cursor = ligne.find(';');
+			string tmpArrive = ligne.substr(0, cursor);
+			ligne.erase(0, cursor + 1);
+
+			cursor = ligne.find(';');
+			int tmpMT = stoi(ligne.substr(0, cursor));
+			ligne.erase(0, cursor + 1);
+
+			if (nbrTrajets == 1) { // trajet simple
+				Traj* trajet = new TrajSimp(tmpDepart.c_str(), tmpArrive.c_str(), TrajSimp::getEnumDuTransport(tmpMT));
+				cata -> Ajouter(trajet);
+				break;
+			} else { // trajet composé avec plusieurs des trajets simples
+
+			}
+		}
+
+		getline(fic, ligne, '\n');		
+	}
+	return true;
+} // ----- Fin de telecharge
 
 int main(){
 	int nbr=0,b=1;
 	char n;
 	Cata* ca = new Cata();
+
+	string nomFichier = "Catalogue.csv";
+
 	cout<<"<Catalogue de trajet>"<<endl;
 	while(b==1){
 		cout<<"Composer les chiffres pour faire des instructions."<<endl;
