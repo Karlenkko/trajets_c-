@@ -6,62 +6,6 @@
 #include "Cata.h"
 using namespace std;
 
-
-
-//int main(){
-	
-	/*Traj* t1=new TrajSimp("Paris","Lyon",AVION);
-	Traj* t2=new TrajSimp("Lyon","Marseille",TRAIN);
-	//Traj* t4=new TrajSimp("Lyon","Paris",BATEAU);
-	const Traj** l=new const Traj*[2];
-	l[0]=t1;
-	l[1]=t2; 
-	//l[2]=t4;
-	if(TrajComp::verifier(l,2)){
-	        TrajComp* t3=new TrajComp(l,2);
-		delete t3;
-		delete l;
-	}
-	else {
-		cout<<"\n\nFaux\n\n";
-		delete t1;
-		delete t2;
-		//delete t4;
-	        delete l;
-	}*/
-	//t3->Afficher();
-
-
-// desous seulement cree, desus pour la 
-/*
-	Traj* t1=new TrajSimp("Paris","Lyon",AVION);
-	Traj* t2=new TrajSimp("Lyon","Marseille",TRAIN);
-	Traj* t4=new TrajSimp("Lyon","Paris",BATEAU);
-	const Traj** l=new const Traj*[2];
-	l[0]=t1;
-	l[1]=t2; 
-	TrajComp* t3=new TrajComp(l,2);
-	Cata* ca=new Cata();
-	
-	ca->Ajouter(t1);
-	ca->Ajouter(t2);
-	ca->Ajouter(t3);
-	ca->Ajouter(t4);
-	
-	ca->Afficher();
-	ca->RechercherSimp("Paris","Lyon");
-	//delete t1;
-	//delete t2;
-	delete t3;
-	delete t4;
-	delete ca;
-	delete l;
-	return 0;
-}
-
-
-
-*/
 void chercherSimp(Cata* ca){
 	char* dep=new char[20];
 	char* arr=new char[20];
@@ -72,7 +16,7 @@ void chercherSimp(Cata* ca){
 	ca->RechercherSimp(dep,arr);
 	delete []dep;
 	delete []arr;
-}
+} // ----- Fin de chercherSimp
 
 void chercherAva(Cata* ca){
 	char* dep=new char[20];
@@ -84,7 +28,7 @@ void chercherAva(Cata* ca){
 	ca->RechercherAva(dep,arr);
 	delete []dep;
 	delete []arr;
-}
+}  // ----- Fin de chercherAva
 
 void ajouteTrajSimp(Cata* ca){
 	char* dep=new char[20];
@@ -104,7 +48,7 @@ void ajouteTrajSimp(Cata* ca){
 	ca->Ajouter(t);
 	delete []dep;
 	delete []arr;
-}
+}  // ----- Fin de ajouteTrajSimp
 
 
 void ajouteTrajComp(Cata* ca){
@@ -137,7 +81,7 @@ void ajouteTrajComp(Cata* ca){
 	delete []dep;
 	delete []arr;
 	delete [] l;  
-}
+}  // ----- Fin de ajouteTrajComp
 
 int main(){
 	int nbr=0,b=1;
@@ -187,4 +131,4 @@ int main(){
 		}
 	}
 	return 0;
-}
+} // ----- Fin de main
