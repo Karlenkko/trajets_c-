@@ -28,6 +28,29 @@ using namespace std;
 //
 //{
 //} //----- Fin de Méthode
+MOY_TRANS TrajSimp::getEnumDuTransport(int nbr)
+{
+#ifdef MAP
+	cout << "[DEBUG - TrajSimp] Appel de getEnumDuTransport" << endl;
+#endif
+	switch(nbr) {
+		case 1:
+			return AVION;
+			break;
+		case 2:
+			return BATEAU;
+			break;
+		case 3:
+			return AUTO;
+			break;
+		case 4:
+			return TRAIN;
+			break;
+		default:
+			cout << "[ERREUR] getEnumDuTransport de TrajSimp à retourné un valeur AVION parce que le numéro de paramètre est inférièure au numéro possible!" << endl;
+			return AVION;
+	}
+} // ----- Fin de getEnumDuTransport
 
 
 //------------------------------------------------- Surcharge d'opérateurs

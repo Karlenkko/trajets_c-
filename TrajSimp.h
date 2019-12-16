@@ -28,6 +28,7 @@ class TrajSimp: public Traj
 
 public:
 //----------------------------------------------------- Méthodes publiques
+    static MOY_TRANS getEnumDuTransport(int nbr);
     // type Méthode ( liste des paramètres );
     // Mode d'emploi :
     //

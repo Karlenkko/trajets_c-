@@ -83,7 +83,7 @@ void ajouteTrajComp(Cata* ca){
 	delete [] l;  
 }  // ----- Fin de ajouteTrajComp
 
-bool sauvegarde(Cata* cata, char* nomFichier, bool doitEtreSauvegarde(const Traj*))
+bool sauvegarde(Cata* cata, string nomFichier, bool doitEtreSauvegarde(const Traj*))
 // Mode d'emploi :
 // Sauvegarder un fichier csv de la même dossier comme cette application.
 // 
@@ -101,14 +101,17 @@ bool sauvegarde(Cata* cata, char* nomFichier, bool doitEtreSauvegarde(const Traj
 	const Traj** liste = cata -> getListe();
 	int i;
 	for (i = 0; i < cata -> getUsed(); i++) {
-		if (doitEtreSauvegarde(liste[i]) && fic.good()) fic << liste[i].toString() << endl;
+		if (doitEtreSauvegarde(liste[i]) && fic.good()) {
+			liste[i].toString(fic);
+			fic << endl;
+		}
 	}
 
 	fic.close();
 	return true;
 }  // ----- Fin de sauvegarde
 
-bool telecharge(Cata* cata, char* nomFichier, bool doitEtreTelecharge(const Traj*))
+bool telecharge(Cata* cata, string nomFichier, bool doitEtreTelecharge(const Traj*))
 // Mode d'emploi :
 // Télécharger un fichier csv de la même dossier comme cette application.
 // 
@@ -123,6 +126,38 @@ bool telecharge(Cata* cata, char* nomFichier, bool doitEtreTelecharge(const Traj
 	ifstream fic;
 	fic.open(nomFichier);
 
+	string ligne;
+	getline(fic, ligne, '\n');
+	while (!fic.eof()) {
+		int cursor = ligne.find(';');
+		int nbrTrajets = stoi(ligne.substr(0, cursor));
+		ligne.erase(0, cursor + 1);
+
+		int currentTrajet;
+		for (currentTrajet = 0; currentTrajet < nbrTrajets; currentTrajet++) {
+			cursor = ligne.find(';');
+			string tmpDepart = ligne.substr(0, cursor);
+			ligne.erase(0, cursor + 1);
+
+			cursor = ligne.find(';');
+			string tmpArrive = ligne.substr(0, cursor);
+			ligne.erase(0, cursor + 1);
+
+			cursor = ligne.find(';');
+			int tmpMT = stoi(ligne.substr(0, cursor));
+			ligne.erase(0, cursor + 1);
+
+			if (nbrTrajets == 1) { // trajet simple
+				Traj* trajet = new TrajSimp(tmpDepart.c_str(), tmpArrive.c_str(), TrajSimp::getEnumDuTransport(tmpMT));
+				cata -> Ajouter(trajet);
+				break;
+			} else { // trajet composé avec plusieurs des trajets simples
+
+			}
+		}
+
+		getline(fic, ligne, '\n');		
+	}
 	return true;
 } // ----- Fin de telecharge
 
@@ -130,7 +165,7 @@ int main(){
 	int nbr=0,b=1;
 	char n;
 	Cata* ca = new Cata();
-	char* nomFichier = "Catalogue.csv";
+	string nomFichier = "Catalogue.csv";
 	cout<<"<Catalogue de trajet>"<<endl;
 	while(b==1){
 		cout<<"Composer les chiffres pour faire des instructions."<<endl;
