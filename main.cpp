@@ -83,13 +83,20 @@ void ajouteTrajComp(Cata* ca){
 	delete [] l;  
 }  // ----- Fin de ajouteTrajComp
 
-bool sauvegarde(Cata* cata, bool doitEtreSauvegarde(const Traj*))
+bool sauvegarde(Cata* cata, char* nomFichier, bool doitEtreSauvegarde(const Traj*))
+// Mode d'emploi :
+// Sauvegarder un fichier csv de la même dossier comme cette application.
+// 
+// Contrat :
+// cata: instance d'objet Cata
+// nomFichier: nom du fichier pour sauvegarder (peut inclure un path)
+// doitEtreSauvegarde: fonctionne anonyme pour déterminer quels trajets devent être sauvegardé
 {
 #ifdef MAP
 	cout << "[DEBUG] Appel de sauvegarde" << endl;
 #endif
 	ofstream fic;
-	fic.open("Catalogue.csv");
+	fic.open(nomFichier);
 
 	const Traj** liste = cata -> getListe();
 	int i;
@@ -101,10 +108,29 @@ bool sauvegarde(Cata* cata, bool doitEtreSauvegarde(const Traj*))
 	return true;
 }  // ----- Fin de sauvegarde
 
+bool telecharge(Cata* cata, char* nomFichier, bool doitEtreTelecharge(const Traj*))
+// Mode d'emploi :
+// Télécharger un fichier csv de la même dossier comme cette application.
+// 
+// Contrat :
+// cata: instance d'objet Cata
+// nomFichier: nom du fichier pour télécharger
+// doitEtreTelecharge: fonctionne anonyme pour déterminer quels trajets devent être téléchargé
+{
+#ifdef MAP
+	cout << "[DEBUG] Appel de telecharge" << endl;
+#endif
+	ifstream fic;
+	fic.open(nomFichier);
+
+	return true;
+} // ----- Fin de telecharge
+
 int main(){
 	int nbr=0,b=1;
 	char n;
 	Cata* ca = new Cata();
+	char* nomFichier = "Catalogue.csv";
 	cout<<"<Catalogue de trajet>"<<endl;
 	while(b==1){
 		cout<<"Composer les chiffres pour faire des instructions."<<endl;
@@ -144,7 +170,7 @@ int main(){
 				cin>>n;
 				switch(n) {
 					case '1':
-						sauvegarde(ca, [](const Traj* trajet) -> bool
+						sauvegarde(ca, nomFichier, [](const Traj* trajet) -> bool
 						// Algorithme :
 						// Retourne true pour chaque trajet, n'importe quoi les attributes.
 						{
@@ -152,7 +178,7 @@ int main(){
 						});
 						break;
 					case '2':
-						sauvegarde(ca, [](const Traj* trajet) -> bool
+						sauvegarde(ca, nomFichier, [](const Traj* trajet) -> bool
 						// Algorithme :
 						// Quand le trajet est un trajet simple, la méthode retourne true,
 						// false autrefois.
@@ -161,7 +187,7 @@ int main(){
 						});
 						break;
 					case '3':
-						sauvegarde(ca, [](const Traj* trajet) -> bool
+						sauvegarde(ca, nomFichier, [](const Traj* trajet) -> bool
 						// Algorithme :
 						// Quand le trajet est un trajet composé, la méthode retourne true,
 						// false autrefois.
@@ -173,6 +199,24 @@ int main(){
 						cout<<"input error"<<endl;
 						cin.clear();
 				}
+			case '7':
+				cout<<"Composer les chiffres pour faire des instructions."<<endl;
+				cout<<"1.Telecharger tout le catalogue du fichier \"Catalogue.csv\"."<<endl;
+				cout<<"8.Terminer"<<endl;
+				cin>>n;
+				switch(n) {
+					case '1':
+						delete ca;
+						ca = new Cata();
+						telecharge(ca, nomFichier, [](const Traj* trajet) -> bool {
+							return true;
+						});
+						break;
+					default:
+						cout<<"input error"<<endl;
+						cin.clear();
+				}
+				break;
 			case '8':
 				b=0;
 				for(int i=0;i<nbr;i++){

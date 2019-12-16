@@ -1,7 +1,7 @@
 # TP C++ n°3 : Gestion des entrées / sorties
 
 ZHOU Shihang 04015685  
-KRITTER Julien 04017334
+KRITTER Julien 04017334  
 FUHR Sebastian ???
 
 ## Utilisation
