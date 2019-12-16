@@ -10,6 +10,7 @@
 #if ! defined ( TRAJSIMP )
 #define TRAJSIMP_H
 #include"Traj.h"
+#define MAP
 //--------------------------------------------------- Interfaces utilisées
 
 //------------------------------------------------------------- Constantes
@@ -67,7 +68,8 @@ public:
     // Afficher la villeDep et ville d'arrivee et le moyen de transport de chaque trajet.
     // Contrat :
     // Non
-
+    virtual void toString(ofstream fic) const;
+	//virtual int sizeTraj() const;
 //------------------------------------------------------------------ PRIVE
 
 protected:

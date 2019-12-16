@@ -13,6 +13,7 @@
 //-------------------------------------------------------- Include système
 using namespace std;
 #include <iostream>
+#include <fstream>
 #include <cstring>
 //------------------------------------------------------ Include personnel
 #include "Traj.h"
@@ -52,6 +53,7 @@ Traj::Traj ( const Traj & unTraj )
 	int longeurArr = strlen(unTraj.villeArr);
 	this->villeArr =new char[longeurArr+1];
 	strcpy(this->villeArr,unTraj.villeArr);
+	this->toString();
 } //----- Fin de Traj (constructeur de copie)
 
 
@@ -68,6 +70,7 @@ Traj::Traj (const char* villeDep, const char* villeArr)
 	int longeurArr = strlen(villeArr);
 	this->villeArr =new char[longeurArr+1 ];
 	strcpy(this->villeArr,villeArr);
+	this->toString();
 } //----- Fin de Traj
 
 
@@ -80,6 +83,7 @@ Traj::~Traj()
 #endif
 	delete []villeDep;
 	delete []villeArr;
+	delete []strT;
 } //----- Fin de ~Traj
 
 void Traj::Afficher()const{
@@ -111,7 +115,29 @@ char* Traj::getDep()const{
 char* Traj::getArr()const{
 	return villeArr;
 }
+
+//void Traj::toString()const{
+	//int size = sizeTraj();
+	//delete []strT;
+	//strT = new char [size + 1];
+	//char temp = ';';
+	//strcat(strT, temp);
+	//strcat(strT, liste[i]->getDep());
+	//strcat(strT, temp);
+	//strcat(strT, liste[i]->getArr());
+	//strcat(strT, temp);
+//}
+
+void Traj::toString1(ofstream fic)const{
+	fic<<";"<< this->getDep() << ";"<< this->getArr() <<";";
+}
+
+//int Traj::sizeTraj()const{
+	//int size = 3;
+	//size += strlen(villeDep);
+	//size += strlen(villeArr);
+	//return size;
+//}
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées
-

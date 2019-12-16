@@ -10,6 +10,7 @@
 #if ! defined ( TRAJCOMP_H )
 #define TRAJCOMP_H
 #include"Traj.h"
+#define MAP
 //--------------------------------------------------- Interfaces utilisées
 
 //------------------------------------------------------------- Constantes
@@ -71,6 +72,8 @@ public:
     // Pour verifier est-ce l'arrivee de trajet precedent est la depart de trajet suivant.(C'est pas tres important apres une amelioration de interface de main)
     // Contrat :
     // Non
+    virtual void toString(ofstream fic) const;
+    //virtual int sizeTraj()const;
     
 //------------------------------------------------------------------ PRIVE
 

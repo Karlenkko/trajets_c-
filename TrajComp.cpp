@@ -14,6 +14,7 @@
 using namespace std;
 #include <iostream>
 #include <cstring>
+#include <fstream>
 //------------------------------------------------------ Include personnel
 #include "TrajComp.h"
 
@@ -102,8 +103,40 @@ void TrajComp::Afficher()const{
 	}
 }
 
+//void TrajComp::toString()const{
+	//int size = 3; // nbr de TrajSimp
+	//for(int i = 0; i < taille; i ++){
+		//size += liste[i]->sizeTraj();
+	//}
+	//char* strTC  = new char [size+1];
+	//char temp;
+	//strcat(strTC, itoa(taille, temp, 10));
+	//temp = ';';
+	//for (int i = 0; i < taille; i++){
 
+		
+	//}
+//}
+void TrajComp::toString(ofstream fic) const{
+	fic<< taille;
+	for(int i = 0; i < taille; i ++){
+		liste[i]->toString1(fic);
+	}
+	fic<< endl;
+}
 
+void TrajComp::toString1(ofstream fic) const{
+	for(int i = 0; i < taille; i ++){
+		liste[i]->toString1(fic);
+	}
+}
+
+//int TrajComp::sizeTraj()const{
+	//int size = 1;
+	//for (int i = 0; i < taille; i ++){
+		//size += liste[i]->sizeTraj();
+	//}
+//}
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées

@@ -14,6 +14,7 @@
 using namespace std;
 #include <iostream>
 #include <cstring>
+#include <fstream>
 //------------------------------------------------------ Include personnel
 #include "TrajSimp.h"
 
@@ -76,6 +77,8 @@ TrajSimp::TrajSimp ( const TrajSimp & unTrajSimp )
 	this->villeArr =new char[longeurArr+1];
 	strcpy(this->villeArr,unTrajSimp.villeArr);
 	this->mt=unTrajSimp.mt;
+	
+	this->toString();
 } //----- Fin de TrajSimp (constructeur de copie)
 
 
@@ -86,6 +89,7 @@ TrajSimp::TrajSimp (const char* villeDep, const char* villeArr, MOY_TRANS mt):Tr
 #ifdef MAP
     cout << "Appel au constructeur de <TrajSimp>" << endl;
 #endif
+	this->toString();
 	this->mt=mt;
 } //----- Fin de TrajSimp
 
@@ -122,6 +126,34 @@ void TrajSimp::Afficher()const{
 			cout<<"Marcher!"<<endl;
 	}
 }
+
+//void TrajSimp::toString()const{
+	//int size = strlen(strT) + 3;
+	//char * temp = new char[size + 1];
+	//char tmp[10];
+	//strcat(temp, itoa(1, tmp, 10)); // nbr de TrajSimp
+	//strcat(temp, strT);
+	//strcat(temp, itoa((int) mt, tmp, 10)); // moy de transp
+	//strcat(temp, '\n');
+	//delete []strT;
+	//strT = temp;
+//}
+
+void TrajSimp::toString(ofstream fic) const{
+	fic<<1;
+	Traj::toString1(fic);
+	fic<<(int)mt<<endl;
+}
+
+void TrajSimp::toString1(ofstream fic) const{
+	Traj::toString1(fic);
+	fic<<(int)mt;
+}
+
+//int TrajSimp::sizeTraj()const{
+	//int size = Traj::sizeTraj() + 1;
+	//return size;
+//}
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées
