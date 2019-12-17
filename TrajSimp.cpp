@@ -25,6 +25,30 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
+void TrajSimp::Afficher()const{
+#ifdef MAP
+    cout << "[DEBUG - TrajSimp] Appel à Afficher" << endl;
+#endif
+	Traj::Afficher();
+	cout<<"Moyen de transport: ";
+	switch(mt){
+		case 0:
+			cout<<"Avion"<<endl;
+			break;
+		case 1: 
+			cout<<"Bateau"<<endl;
+			break;
+		case 2:
+			cout<<"Auto"<<endl;
+			break;
+		case 3:
+			cout<<"Train"<<endl;
+			break;
+		default: 
+			cout<<"Marcher!"<<endl;
+	}
+} // ----- Fin d'Afficher
+
 MOY_TRANS TrajSimp::getEnumDuTransport(int nbr)
 {
 #ifdef MAP
@@ -51,6 +75,9 @@ MOY_TRANS TrajSimp::getEnumDuTransport(int nbr)
 
 int TrajSimp::getNumeroMoyenTransport() const
 {
+#ifdef MAP
+	cout << "[DEBUG - TrajSimp] Appel au getNumeroMoyenTransport" << endl;
+#endif
 	switch (mt) {
 		case AVION:
 			return 1;
@@ -72,6 +99,9 @@ int TrajSimp::getNumeroMoyenTransport() const
 
 string TrajSimp::toString() const
 {
+#ifdef MAP
+	cout << "[DEBUG - TrajSimp] Appel au toString" << endl;
+#endif
 	string tmp = Traj::toString();
 	tmp.append(to_string(getNumeroMoyenTransport()));
 	return tmp;
@@ -128,55 +158,6 @@ TrajSimp::~TrajSimp ( )
 
 } //----- Fin de ~TrajSimp
 
-void TrajSimp::Afficher()const{
-	Traj::Afficher();
-	cout<<"Moyen de transport: ";
-	switch(mt){
-		case 0:
-			cout<<"Avion"<<endl;
-			break;
-		case 1: 
-			cout<<"Bateau"<<endl;
-			break;
-		case 2:
-			cout<<"Auto"<<endl;
-			break;
-		case 3:
-			cout<<"Train"<<endl;
-			break;
-		default: 
-			cout<<"Marcher!"<<endl;
-	}
-}
-
-//void TrajSimp::toString()const{
-	//int size = strlen(strT) + 3;
-	//char * temp = new char[size + 1];
-	//char tmp[10];
-	//strcat(temp, itoa(1, tmp, 10)); // nbr de TrajSimp
-	//strcat(temp, strT);
-	//strcat(temp, itoa((int) mt, tmp, 10)); // moy de transp
-	//strcat(temp, '\n');
-	//delete []strT;
-	//strT = temp;
-//}
-
-/*
-void TrajSimp::toString(ofstream fic) const{
-	fic<<1;
-	Traj::toString1(fic);
-	fic<<(int)mt<<endl;
-}
-
-void TrajSimp::toString1(ofstream fic) const{
-	Traj::toString1(fic);
-	fic<<(int)mt;
-}
-*/
-//int TrajSimp::sizeTraj()const{
-	//int size = Traj::sizeTraj() + 1;
-	//return size;
-//}
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées

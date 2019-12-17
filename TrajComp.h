@@ -30,12 +30,12 @@ class TrajComp : public Traj
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
 
+    void Afficher()const;
+    // Mode d'emploi :
+    // Afficher la villeDep et ville d'arrivee et le moyen de transport de chaque trajet.
+    // Contrat :
+    // Non
 
 //------------------------------------------------- Surcharge d'opérateurs
     //TrajComp & operator = ( const TrajComp & unTrajComp );
@@ -65,24 +65,17 @@ public:
     // delete chaque objet pointeur par la liste de ce class et delete le liste a la fin.
     // Contrat :
     // Non
-    void Afficher()const;
-    // Mode d'emploi :
-    // Afficher la villeDep et ville d'arrivee et le moyen de transport de chaque trajet.
-    // Contrat :
-    // Non
-    static bool verifier(const Traj** l, int taille);
-    // Mode d'emploi :
-    // Pour verifier est-ce l'arrivee de trajet precedent est la depart de trajet suivant.(C'est pas tres important apres une amelioration de interface de main)
-    // Contrat :
-    // Non
-    //virtual void toString(ofstream fic) const;
-    //virtual void toString1(ofstream fic) const;
-    //virtual int sizeTraj()const;
     
 //------------------------------------------------------------------ PRIVE
 
 private:
 //----------------------------------------------------- Méthodes protégées
+
+    static bool verifier(const Traj** l, int taille);
+    // Mode d'emploi :
+    // Pour verifier est-ce l'arrivee de trajet precedent est la depart de trajet suivant.(C'est pas tres important apres une amelioration de interface de main)
+    // Contrat :
+    // Non
     
 //----------------------------------------------------- Attributs protégés
 	const Traj** liste;
@@ -93,4 +86,3 @@ private:
 //-------------------------------- Autres définitions dépendantes de <TrajComp>
 
 #endif // TRAJCOMP_H
-

@@ -30,15 +30,32 @@ class TrajSimp: public Traj
 
 public:
 //----------------------------------------------------- Méthodes publiques
+
+    virtual void Afficher()const;
+    // Mode d'emploi :
+    // Afficher la villeDep et ville d'arrivee et le moyen de transport de chaque trajet.
+    // Contrat :
+    // Non
+
     static MOY_TRANS getEnumDuTransport(int nbr);
     // Mode d'emploi :
+    // Retourne l'Enum qu'est equivalent au numéro du transport.
     //
     // Contrat :
     //
 
     int getNumeroMoyenTransport() const;
+    // Mode d'emploi :
+    // Retourne le numéro du moyen du transport de cette instance.
+    //
+    // Contrat :
+    //
 
     virtual string toString() const;
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -67,15 +84,7 @@ public:
     // On fait rien dans ce destructeur car les villeDep et les villeArr vont destruire dans le class Traj.
     // Contrat :
     // Non
-    virtual void Afficher()const;
-    // Mode d'emploi :
-    // Afficher la villeDep et ville d'arrivee et le moyen de transport de chaque trajet.
-    // Contrat :
-    // Non
 
-    //virtual void toString(ofstream fic) const;
-    //virtual void toString1(ofstream fic) const;
-	//virtual int sizeTraj() const;
 //------------------------------------------------------------------ PRIVE
 
 protected:
@@ -88,4 +97,3 @@ protected:
 //-------------------------------- Autres définitions dépendantes de <TrajSimp>
 
 #endif // TRAJSIMP_H
-

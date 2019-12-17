@@ -28,12 +28,42 @@ class Cata
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
+
+    void Ajouter(const Traj *);
     // Mode d'emploi :
     //
     // Contrat :
     //
 
+    void Afficher()const;
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+
+    int RechercherSimp(const char* Dep, const char* Arr);
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+
+    const Traj** getListe();
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+
+	int RechercherAva(const char* Dep, const char* Arr);
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+
+	int getUsed() const;
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
 //------------------------------------------------- Surcharge d'opérateurs
     //Cata & operator = ( const Cata & unCata );
@@ -61,19 +91,30 @@ public:
     //
     // Contrat :
     //
-    void Ajouter(const Traj *);
-    void Afficher()const;
-    int RechercherSimp(const char* Dep, const char* Arr);
-    const Traj** getListe();
-	int RechercherAva(const char* Dep, const char* Arr);
-	int getUsed() const;
+    
 //------------------------------------------------------------------ PRIVE
 
 protected:
 //----------------------------------------------------- Méthodes protégées
+
 	void recFind(int idx, int * listTraj, const char* Dep, const char* Arr, int * total);
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+
 	void affiTraj(const int * listTraj, int idx, int nbr);
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+
 	bool parsed(const Traj* curr, int idx, int * listTraj);
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+    
 //----------------------------------------------------- Attributs protégés
 	const Traj** liste;
 	int taille;
@@ -83,4 +124,3 @@ protected:
 //-------------------------------- Autres définitions dépendantes de <Cata>
 
 #endif // CATA_H
-

@@ -24,14 +24,18 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type TrajComp::Méthode ( liste des paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
+
+void TrajComp::Afficher()const{
+	for(int i=0;i<taille;i++){
+		liste[i]->Afficher();
+	}
+} // ----- Fin d'Afficher
 
 string TrajComp::toString() const
 {
+#ifdef MAP
+	cout << "[DEBUG - TrajComp] Appel au toString" << endl;
+#endif
 	string tmp = to_string(taille);
 	int i;
 	for (i = 0; i < taille; i++) {
@@ -109,56 +113,15 @@ TrajComp::~TrajComp ()
 		delete liste[i];
 	}
 	delete []liste;
-	//delete []villeDep;
-	//delete []villeArr;
 } //----- Fin de ~TrajComp
 
-void TrajComp::Afficher()const{
-	for(int i=0;i<taille;i++){
-		liste[i]->Afficher();
-	}
-}
-
-//void TrajComp::toString()const{
-	//int size = 3; // nbr de TrajSimp
-	//for(int i = 0; i < taille; i ++){
-		//size += liste[i]->sizeTraj();
-	//}
-	//char* strTC  = new char [size+1];
-	//char temp;
-	//strcat(strTC, itoa(taille, temp, 10));
-	//temp = ';';
-	//for (int i = 0; i < taille; i++){
-
-		
-	//}
-//}
-/*
-void TrajComp::toString(ofstream fic) const{
-	fic<< taille;
-	for(int i = 0; i < taille; i ++){
-		liste[i]->toString1(fic);
-	}
-	fic<< endl;
-}
-
-void TrajComp::toString1(ofstream fic) const{
-	for(int i = 0; i < taille; i ++){
-		liste[i]->toString1(fic);
-	}
-}
-*/
-
-//int TrajComp::sizeTraj()const{
-	//int size = 1;
-	//for (int i = 0; i < taille; i ++){
-		//size += liste[i]->sizeTraj();
-	//}
-//}
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées
 bool TrajComp::verifier(const Traj** l, int taille){
+#ifdef MAP
+    cout << "[DEBUG - TrajComp] Appel au verifier" << endl;
+#endif
 	//int result = 1;
 	for(int i = 0; i < taille - 1; i ++) {
 		if(strcmp(l[i]->getArr(),l[i+1]->getDep())!=0){
@@ -167,5 +130,4 @@ bool TrajComp::verifier(const Traj** l, int taille){
 	
 	}	
 	return true;
-	
-}
+} // ----- Fin de verifier

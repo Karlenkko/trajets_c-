@@ -22,12 +22,89 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type Cata::Méthode ( liste des paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
 
+void Cata::Ajouter(const Traj * l){
+#ifdef MAP
+	cout << "[DEBUG - Cata] Appel au Ajouter" << endl;
+#endif
+	if(used==taille){
+		taille+=5;
+		const Traj** tmp=new const Traj*[taille];
+		for(int i=0;i<used;i++){
+			tmp[i]=liste[i];
+		}
+		delete []liste;
+		liste=tmp;
+	}
+	liste[used]=l;
+	used++;
+} // ----- Fin d'Ajouter
+
+void Cata::Afficher()const{
+#ifdef MAP
+	cout << "[DEBUG - Cata] Appel au Afficher" << endl;
+#endif
+	cout<<"\n\nDans le catalogue:\n";
+	for(int i=0;i<used;i++){
+		cout<<"Le "<<i<<"eme trajet: \n";
+		liste[i]->Afficher();
+		cout<<"\n";
+	}
+	cout<<"\nIl y a en total "<<used<<" trajets dans la catalogue.\n"<<endl;
+} // ----- Fin d'Afficher
+
+const Traj** Cata::getListe(){
+	return liste;
+} // ----- Fin de getListe
+
+int Cata::getUsed() const {
+	return used;
+} // ----- Fin de getUsed
+
+int Cata::RechercherSimp(const char* Dep, const char* Arr){
+#ifdef MAP
+	cout << "[DEBUG - Cata] Appel au RechercherSimp" << endl;
+#endif
+	int nbr=0;
+	
+	cout<<"\n\nRechercher la(les) solution(s) de "<<Dep<<" a "<<Arr<<".\n";	
+	
+	for(int i=0;i<used;i++){
+		// check every traj
+		if(strcmp(liste[i]->getDep(),Dep)==0 && strcmp(liste[i]->getArr(),Arr)==0){
+			cout<<"Le "<<i<<"eme trajet: \n";
+			liste[i]->Afficher();
+			cout<<"\n";
+			nbr++;
+		}
+	}
+	cout<<"Il y a en total "<<nbr<<" solution(s).\n";
+	
+	return nbr;
+} // ----- Fin de RechercherSimp
+
+int Cata::RechercherAva(const char* Dep, const char* Arr){
+#ifdef MAP
+	cout << "[DEBUG - Cata] Appel au RechercherAva" << endl;
+#endif
+	if(used == 0 || strcmp(Dep, Arr) == 0){
+		cout << "Il n'y a pas de trajet possible dans le catalogue" << endl;
+		return 0;
+	}
+	int * nbr = new int (0);
+	int * listTraj = new int[used];
+	for(int i = 0; i < used; i ++){
+		listTraj[i] = 0;
+	}
+	
+	cout<< "start RechercheAva"<< endl;
+	recFind(0, listTraj, Dep, Arr, nbr);
+	cout<<"Il y a en total "<<*nbr<<" solution(s).\n\n";
+	int temp = *nbr;
+	delete [] listTraj;
+	delete nbr;
+	return temp;
+} // ----- Fin de RechercherAva
 
 //------------------------------------------------- Surcharge d'opérateurs
 //Cata & Cata::operator = ( const Cata & unCata )
@@ -75,78 +152,12 @@ Cata::~Cata ( )
 	delete []liste;
 } //----- Fin de ~Cata
 
-void Cata::Ajouter(const Traj * l){
-	if(used==taille){
-		taille+=5;
-		const Traj** tmp=new const Traj*[taille];
-		for(int i=0;i<used;i++){
-			tmp[i]=liste[i];
-		}
-		delete []liste;
-		liste=tmp;
-	}
-	liste[used]=l;
-	used++;
-}
-
-void Cata::Afficher()const{
-	cout<<"\n\nDans le catalogue:\n";
-	for(int i=0;i<used;i++){
-		cout<<"Le "<<i<<"eme trajet: \n";
-		liste[i]->Afficher();
-		cout<<"\n";
-	}
-	cout<<"\nIl y a en total "<<used<<" trajets dans la catalogue.\n"<<endl;
-}
-
-const Traj** Cata::getListe(){
-	return liste;
-}
-
-int Cata::getUsed() const {
-	return used;
-}
-
-int Cata::RechercherSimp(const char* Dep, const char* Arr){
-	int nbr=0;
-	
-	cout<<"\n\nRechercher la(les) solution(s) de "<<Dep<<" a "<<Arr<<".\n";	
-	
-	for(int i=0;i<used;i++){
-		// check every traj
-		if(strcmp(liste[i]->getDep(),Dep)==0 && strcmp(liste[i]->getArr(),Arr)==0){
-			cout<<"Le "<<i<<"eme trajet: \n";
-			liste[i]->Afficher();
-			cout<<"\n";
-			nbr++;
-		}
-	}
-	cout<<"Il y a en total "<<nbr<<" solution(s).\n";
-	
-	return nbr;
-}
-
-int Cata::RechercherAva(const char* Dep, const char* Arr){
-	if(used == 0 || strcmp(Dep, Arr) == 0){
-		cout << "Il n'y a pas de trajet possible dans le catalogue" << endl;
-		return 0;
-	}
-	int * nbr = new int (0);
-	int * listTraj = new int[used];
-	for(int i = 0; i < used; i ++){
-		listTraj[i] = 0;
-	}
-	
-	cout<< "start RechercheAva"<< endl;
-	recFind(0, listTraj, Dep, Arr, nbr);
-	cout<<"Il y a en total "<<*nbr<<" solution(s).\n\n";
-	int temp = *nbr;
-	delete [] listTraj;
-	delete nbr;
-	return temp;
-}
 //----------------------------------------------------- Méthodes protégées
+
 void Cata::recFind(int idx, int * listTraj, const char* Dep, const char* Arr, int * nbr){
+#ifdef MAP
+	cout << "[DEBUG - Cata] Appel au recFind" << endl;
+#endif
 	idx++;
 	for(int i = 0; i < used; i ++){
 		// check every traj
@@ -167,9 +178,12 @@ void Cata::recFind(int idx, int * listTraj, const char* Dep, const char* Arr, in
 			}
 		}
 	}
-}
+} // ----- Fin de recFind
 
 void Cata::affiTraj (const int * listTraj, int idx, int nbr){
+#ifdef MAP
+	cout << "[DEBUG - Cata] Appel au affiTraj" << endl;
+#endif
 	// show a valid traj from RechercheAva
 	cout<<endl;
 	cout<<"Le "<<nbr<<"eme trajet: \n";
@@ -177,9 +191,12 @@ void Cata::affiTraj (const int * listTraj, int idx, int nbr){
 		liste[listTraj[i]]->Afficher();
 	}
 	cout<<endl;
-}
+} // ----- Fin d'affiTraj
 
 bool Cata::parsed(const Traj* curr, int idx, int * listTraj){
+#ifdef MAP
+	cout << "[DEBUG - Cata] Appel au parsed" << endl;
+#endif
 	// check every ville parsed, avoid revisit
 	if(idx >= 2 && strcmp(liste[listTraj[0]]->getDep(), curr -> getArr()) == 0){
 		// at least one saved traj
@@ -195,7 +212,8 @@ bool Cata::parsed(const Traj* curr, int idx, int * listTraj){
 		}
 	}
 	return false;
-}
+} // ----- Fin de parsed
+
 //------------------------------------------------------------------ PRIVE
 
 

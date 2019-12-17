@@ -32,11 +32,28 @@ class Traj
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
+    
+    virtual void Afficher()const;
+    // Mode d'emploi :
+    // Afficher la villeDep et ville d'arrivee de chaque trajet 
+    // Contrat :
+    // Non
+    char* getDep()const;
+    // Mode d'emploi :
+    // Permet de utiliser la valeur de villeDep dans les autres class, par example appel de strcpy, etc.
+    // Contrat :
+    // Non
+    char* getArr()const;
+    // Mode d'emploi :
+    // Permet de utiliser la valeur de villeArr dans les autres class, par example appel de strcpy, etc.
+    // Contrat :
+    // Non    
+
+    virtual string toString() const;
     // Mode d'emploi :
     //
     // Contrat :
-    //
+    // Non
 
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -65,26 +82,7 @@ public:
     // Detuire le villeDep et villeArr dans chaque objet a la fin d'execution
     // Contrat :
     // Non
-    virtual void Afficher()const;
-    // Mode d'emploi :
-    // Afficher la villeDep et ville d'arrivee de chaque trajet 
-    // Contrat :
-    // Non
-    char* getDep()const;
-    // Mode d'emploi :
-    // Permet de utiliser la valeur de villeDep dans les autres class, par example appel de strcpy, etc.
-    // Contrat :
-    // Non
-    char* getArr()const;
-    // Mode d'emploi :
-    // Permet de utiliser la valeur de villeArr dans les autres class, par example appel de strcpy, etc.
-    // Contrat :
-    // Non    
-
-    virtual string toString() const;
-	//virtual void toString(ofstream fic) const;
-    //virtual void toString1(ofstream fic) const;
-	//virtual int sizeTraj() const;
+	
 //------------------------------------------------------------------ PRIVE
 
 protected:
