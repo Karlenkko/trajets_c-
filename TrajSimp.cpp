@@ -137,6 +137,7 @@ void TrajSimp::Afficher()const{
 	//strT = temp;
 //}
 
+/*
 void TrajSimp::toString(ofstream fic) const{
 	fic<<1;
 	Traj::toString1(fic);
@@ -147,7 +148,7 @@ void TrajSimp::toString1(ofstream fic) const{
 	Traj::toString1(fic);
 	fic<<(int)mt;
 }
-
+*/
 //int TrajSimp::sizeTraj()const{
 	//int size = Traj::sizeTraj() + 1;
 	//return size;

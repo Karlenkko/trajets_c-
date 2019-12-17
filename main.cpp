@@ -82,10 +82,7 @@ void ajouteTrajComp(Cata* ca){
 	ca->Ajouter(tc);
 	delete []dep;
 	delete []arr;
-	delete [] l;  
-
-}
-
+	delete [] l;
 }  // ----- Fin de ajouteTrajComp
 
 bool sauvegarde(Cata* cata, string nomFichier, bool doitEtreSauvegarde(const Traj*))
@@ -107,7 +104,7 @@ bool sauvegarde(Cata* cata, string nomFichier, bool doitEtreSauvegarde(const Tra
 	int i;
 	for (i = 0; i < cata -> getUsed(); i++) {
 		if (doitEtreSauvegarde(liste[i]) && fic.good()) {
-			liste[i].toString(fic);
+			//liste[i].toString(fic);
 			fic << endl;
 		}
 	}

@@ -68,8 +68,8 @@ public:
     // Afficher la villeDep et ville d'arrivee et le moyen de transport de chaque trajet.
     // Contrat :
     // Non
-    virtual void toString(ofstream fic) const;
-    virtual void toString1(ofstream fic) const;
+    //virtual void toString(ofstream fic) const;
+    //virtual void toString1(ofstream fic) const;
 	//virtual int sizeTraj() const;
 //------------------------------------------------------------------ PRIVE
 

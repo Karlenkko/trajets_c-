@@ -125,9 +125,11 @@ char* Traj::getArr()const{
 	//strcat(strT, temp);
 //}
 
+/*
 void Traj::toString1(ofstream fic)const{
 	fic<<";"<< this->getDep() << ";"<< this->getArr() <<";";
 }
+*/
 
 //int Traj::sizeTraj()const{
 	//int size = 3;

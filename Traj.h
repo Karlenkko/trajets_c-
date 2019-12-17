@@ -79,8 +79,8 @@ public:
     // Permet de utiliser la valeur de villeArr dans les autres class, par example appel de strcpy, etc.
     // Contrat :
     // Non    
-	virtual void toString(ofstream fic) const;
-    virtual void toString1(ofstream fic) const;
+	//virtual void toString(ofstream fic) const;
+    //virtual void toString1(ofstream fic) const;
 	//virtual int sizeTraj() const;
 //------------------------------------------------------------------ PRIVE
 

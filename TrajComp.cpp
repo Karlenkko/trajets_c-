@@ -117,6 +117,7 @@ void TrajComp::Afficher()const{
 		
 	//}
 //}
+/*
 void TrajComp::toString(ofstream fic) const{
 	fic<< taille;
 	for(int i = 0; i < taille; i ++){
@@ -130,6 +131,7 @@ void TrajComp::toString1(ofstream fic) const{
 		liste[i]->toString1(fic);
 	}
 }
+*/
 
 //int TrajComp::sizeTraj()const{
 	//int size = 1;
