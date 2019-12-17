@@ -11,6 +11,7 @@
 #define TRAJSIMP_H
 #include <fstream>
 #include"Traj.h"
+using namespace std;
 //--------------------------------------------------- Interfaces utilisées
 
 //------------------------------------------------------------- Constantes
@@ -30,11 +31,14 @@ class TrajSimp: public Traj
 public:
 //----------------------------------------------------- Méthodes publiques
     static MOY_TRANS getEnumDuTransport(int nbr);
-    // type Méthode ( liste des paramètres );
     // Mode d'emploi :
     //
     // Contrat :
     //
+
+    int getNumeroMoyenTransport() const;
+
+    virtual string toString() const;
 
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -68,6 +72,7 @@ public:
     // Afficher la villeDep et ville d'arrivee et le moyen de transport de chaque trajet.
     // Contrat :
     // Non
+
     //virtual void toString(ofstream fic) const;
     //virtual void toString1(ofstream fic) const;
 	//virtual int sizeTraj() const;

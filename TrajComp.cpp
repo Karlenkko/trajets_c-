@@ -17,6 +17,7 @@ using namespace std;
 #include <fstream>
 //------------------------------------------------------ Include personnel
 #include "TrajComp.h"
+#include "TrajSimp.h"
 
 //------------------------------------------------------------- Constantes
 
@@ -28,6 +29,21 @@ using namespace std;
 //
 //{
 //} //----- Fin de Méthode
+
+string TrajComp::toString() const
+{
+	string tmp = to_string(taille);
+	int i;
+	for (i = 0; i < taille; i++) {
+		tmp.append(";");
+		tmp.append(liste[i] -> getDep());
+		tmp.append(";");
+		tmp.append(liste[i] -> getArr());
+		tmp.append(";");
+		tmp.append(to_string(((TrajSimp*) liste[i]) -> getNumeroMoyenTransport()));
+	}
+	return tmp;
+}// ----- Fin de toString
 
 
 //------------------------------------------------- Surcharge d'opérateurs

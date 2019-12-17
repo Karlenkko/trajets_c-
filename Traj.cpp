@@ -131,6 +131,16 @@ void Traj::toString1(ofstream fic)const{
 }
 */
 
+string Traj::toString() const
+{
+	string tmp = "1;";
+	tmp.append(getDep());
+	tmp.append(";");
+	tmp.append(getArr());
+	tmp.append(";");
+	return tmp;
+} // ----- Fin de toString
+
 //int Traj::sizeTraj()const{
 	//int size = 3;
 	//size += strlen(villeDep);

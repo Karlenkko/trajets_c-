@@ -18,7 +18,7 @@ void chercherSimp(Cata* ca){
 	ca->RechercherSimp(dep,arr);
 	delete []dep;
 	delete []arr;
-}
+} // ----- Fin de chercherSimp
 
 void chercherAva(Cata* ca){
 	char* dep=new char[20];
@@ -30,7 +30,7 @@ void chercherAva(Cata* ca){
 	ca->RechercherAva(dep,arr);
 	delete []dep;
 	delete []arr;
-}
+} // ----- Fin de chercherAva
 
 void ajouteTrajSimp(Cata* ca){
 	char* dep=new char[20];
@@ -50,7 +50,7 @@ void ajouteTrajSimp(Cata* ca){
 	ca->Ajouter(t);
 	delete []dep;
 	delete []arr;
-}
+} // ----- Fin de ajouteTrajSimp
 
 
 void ajouteTrajComp(Cata* ca){
@@ -104,8 +104,7 @@ bool sauvegarde(Cata* cata, string nomFichier, bool doitEtreSauvegarde(const Tra
 	int i;
 	for (i = 0; i < cata -> getUsed(); i++) {
 		if (doitEtreSauvegarde(liste[i]) && fic.good()) {
-			//liste[i].toString(fic);
-			fic << endl;
+			fic << liste[i] -> toString() << endl;
 		}
 	}
 
@@ -178,7 +177,7 @@ int main(){
 		cout<<"3.Afficher des trajets qui sont deja existe dans la catalogue."<<endl;
 		cout<<"4.Chercher un trajets en utilisant le facon simple."<<endl;
 		cout<<"5.Chercher un trajets en utilisant le facon avancee."<<endl;
-		cout<<"6.Terminer."<<endl;
+		cout<<"8.Terminer."<<endl;
 		cin>>n;
 		switch(n){
 			case '1':
@@ -199,6 +198,11 @@ int main(){
 				chercherAva(ca);
 				break;
 			case '6':
+				sauvegarde(ca, nomFichier, [](const Traj* trajet) -> bool {return true;});
+				break;
+			case '7':
+				break;
+			case '8':
 				b=0;
 				for(int i=0;i<nbr;i++){
 					delete ca->getListe()[i];

@@ -24,11 +24,7 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type TrajSimp::Méthode ( liste des paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
+
 MOY_TRANS TrajSimp::getEnumDuTransport(int nbr)
 {
 #ifdef MAP
@@ -52,6 +48,34 @@ MOY_TRANS TrajSimp::getEnumDuTransport(int nbr)
 			return AVION;
 	}
 } // ----- Fin de getEnumDuTransport
+
+int TrajSimp::getNumeroMoyenTransport() const
+{
+	switch (mt) {
+		case AVION:
+			return 1;
+			break;
+		case BATEAU:
+			return 2;
+			break;
+		case AUTO:
+			return 3;
+			break;
+		case TRAIN:
+			return 4;
+			break;
+		default:
+			cout << "[ERREUR] Moyen du transport inconnu!" << endl;
+			return -1;
+	}
+} // ----- Fin de getNumeroMoyenTransport
+
+string TrajSimp::toString() const
+{
+	string tmp = Traj::toString();
+	tmp.append(to_string(getNumeroMoyenTransport()));
+	return tmp;
+} // ----- Fin de toString
 
 
 //------------------------------------------------- Surcharge d'opérateurs

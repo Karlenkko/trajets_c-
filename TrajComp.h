@@ -11,6 +11,7 @@
 #define TRAJCOMP_H
 #include <fstream>
 #include"Traj.h"
+using namespace std;
 //--------------------------------------------------- Interfaces utilisées
 
 //------------------------------------------------------------- Constantes
@@ -42,6 +43,8 @@ public:
     //
     // Contrat :
     //
+
+    virtual string toString() const;
 
 
 //-------------------------------------------- Constructeurs - destructeur

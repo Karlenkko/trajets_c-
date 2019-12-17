@@ -11,6 +11,7 @@
 #define TRAJ_H
 #include <iostream>
 #include <fstream>
+using namespace std;
 
 
 //--------------------------------------------------- Interfaces utilisées
@@ -69,16 +70,18 @@ public:
     // Afficher la villeDep et ville d'arrivee de chaque trajet 
     // Contrat :
     // Non
-    virtual char* getDep()const;
+    char* getDep()const;
     // Mode d'emploi :
     // Permet de utiliser la valeur de villeDep dans les autres class, par example appel de strcpy, etc.
     // Contrat :
     // Non
-    virtual char* getArr()const;
+    char* getArr()const;
     // Mode d'emploi :
     // Permet de utiliser la valeur de villeArr dans les autres class, par example appel de strcpy, etc.
     // Contrat :
     // Non    
+
+    virtual string toString() const;
 	//virtual void toString(ofstream fic) const;
     //virtual void toString1(ofstream fic) const;
 	//virtual int sizeTraj() const;
@@ -95,4 +98,3 @@ protected:
 //-------------------------------- Autres définitions dépendantes de <Traj>
 
 #endif // TRAJ_H
-
