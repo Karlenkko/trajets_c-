@@ -146,9 +146,9 @@ Cata::~Cata ( )
 #ifdef MAP
     cout << "Appel au destructeur de <Cata>" << endl;
 #endif
-	/*for(int i=0;i<used;i++){
+	for(int i=0;i<used;i++){
 		delete liste[i];
-	}*/	
+	}
 	delete []liste;
 } //----- Fin de ~Cata
 

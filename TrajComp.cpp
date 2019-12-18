@@ -44,7 +44,7 @@ string TrajComp::toString() const
 		tmp.append(";");
 		tmp.append(liste[i] -> getArr());
 		tmp.append(";");
-		tmp.append(to_string(((TrajSimp*) liste[i]) -> getNumeroMoyenTransport()));
+		tmp.append(to_string((int) ((TrajSimp*) liste[i]) -> getMoyenTransport()));
 	}
 	return tmp;
 }// ----- Fin de toString

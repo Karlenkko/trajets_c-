@@ -159,15 +159,14 @@ bool telecharge(Cata* cata, string nomFichier, bool doitEtreTelecharge(const Tra
 			int tmpMT = stoi(ligne.substr(0, cursor));
 			ligne.erase(0, cursor + 1);
 
-			Traj* trajet = new TrajSimp(tmpDepart.c_str(), tmpArrive.c_str(), TrajSimp::getEnumDuTransport(tmpMT));
+			Traj* trajet = new TrajSimp(tmpDepart.c_str(), tmpArrive.c_str(),(MOY_TRANS) tmpMT);
 			cata -> Ajouter(trajet);
 
 			#ifdef MAP
 				cout << "[IMPORT] Trajet simple trouvé: " << trajet -> toString() << endl;
 			#endif
 		} else { // trajet composé
-			/*
-			const Traj** trajetsArr = (const Traj**) malloc(sizeof(TrajSimp) * nbrTrajets);
+			const Traj** trajetsArr = new const Traj*[nbrTrajets];
 			int i;
 			for (i = 0; i < nbrTrajets; i++) {
 				cursor = ligne.find(';');
@@ -183,18 +182,21 @@ bool telecharge(Cata* cata, string nomFichier, bool doitEtreTelecharge(const Tra
 				int tmpMT = stoi(ligne.substr(0, cursor));
 				ligne.erase(0, cursor + 1);
 
-				Traj* trajet = new TrajSimp(tmpDepart.c_str(), tmpArrive.c_str(), TrajSimp::getEnumDuTransport(tmpMT));
+				Traj* trajet = new TrajSimp(tmpDepart.c_str(), tmpArrive.c_str(), (MOY_TRANS) tmpMT);
 				#ifdef MAP
 					cout << "[IMPORT] Trajet simple ajouté au trajet composé: " << trajet -> toString() << endl;
 				#endif
 				trajetsArr[i] = trajet;
 			}
+
 			Traj* nouvTrajet = new TrajComp(trajetsArr, nbrTrajets);
 			cata -> Ajouter(nouvTrajet);
+
+			delete [] trajetsArr;
+			
 			#ifdef MAP
 				cout << "[IMPORT] Trajet composé trouvé: " << nouvTrajet -> toString() << endl;
 			#endif
-			*/
 		}	
 	}
 	fic.close();
@@ -239,10 +241,54 @@ int main(){
 				chercherAva(ca);
 				break;
 			case '6':
-				sauvegarde(ca, nomFichier, [](const Traj* trajet) -> bool {return true;});
+				cout<<"Composer les chiffres pour faire des instructions."<<endl;
+				cout<<"1.Sauvegarde tous trajets."<<endl;
+				cout<<"2.Sauvegarde tous trajets simples."<<endl;
+				cout<<"3.Sauvegarde tous trajets composés."<<endl;
+				cout<<"8.Terminer."<<endl;
+				cin>>n;
+				switch(n){
+					case '1':
+						sauvegarde(ca, nomFichier, [](const Traj* trajet) -> bool {return true;});
+						break;
+					case '2':
+						sauvegarde(ca, nomFichier, [](const Traj* trajet) -> bool {
+							return true; // TODO
+						});
+					case '3':
+						sauvegarde(ca, nomFichier, [](const Traj* trajet) -> bool {
+							return true; // TODO
+						});
+					case '8':
+						break;
+					default:
+						break;
+				}
 				break;
 			case '7':
-				telecharge(ca, nomFichier, [](const Traj* trajet) -> bool {return true;});
+				cout<<"Composer les chiffres pour faire des instructions."<<endl;
+				cout<<"1.Télécharge tous trajets."<<endl;
+				cout<<"2.Télécharge tous trajets simples."<<endl;
+				cout<<"3.Télécharge tous trajets composés."<<endl;
+				cout<<"8.Terminer."<<endl;
+				cin>>n;
+				switch(n){
+					case '1':
+						telecharge(ca, nomFichier, [](const Traj* trajet) -> bool {return true;});
+						break;
+					case '2':
+						telecharge(ca, nomFichier, [](const Traj* trajet) -> bool {
+							return true; // TODO
+						});
+					case '3':
+						telecharge(ca, nomFichier, [](const Traj* trajet) -> bool {
+							return true; // TODO
+						});
+					case '8':
+						break;
+					default:
+						break;
+				}
 				break;
 			case '8':
 				b=0;

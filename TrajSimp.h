@@ -37,26 +37,17 @@ public:
     // Contrat :
     // Non
 
-    static MOY_TRANS getEnumDuTransport(int nbr);
-    // Mode d'emploi :
-    // Retourne l'Enum qu'est equivalent au numéro du transport.
-    //
-    // Contrat :
-    //
-
-    int getNumeroMoyenTransport() const;
-    // Mode d'emploi :
-    // Retourne le numéro du moyen du transport de cette instance.
-    //
-    // Contrat :
-    //
-
     virtual string toString() const;
     // Mode d'emploi :
     //
     // Contrat :
     //
 
+    MOY_TRANS getMoyenTransport() const;
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
 //------------------------------------------------- Surcharge d'opérateurs
     //TrajSimp & operator = ( const TrajSimp & unTrajSimp );

@@ -49,63 +49,20 @@ void TrajSimp::Afficher()const{
 	}
 } // ----- Fin d'Afficher
 
-MOY_TRANS TrajSimp::getEnumDuTransport(int nbr)
-{
-#ifdef MAP
-	cout << "[DEBUG - TrajSimp] Appel de getEnumDuTransport" << endl;
-#endif
-	switch(nbr) {
-		case 1:
-			return AVION;
-			break;
-		case 2:
-			return BATEAU;
-			break;
-		case 3:
-			return AUTO;
-			break;
-		case 4:
-			return TRAIN;
-			break;
-		default:
-			cout << "[ERREUR] getEnumDuTransport de TrajSimp à retourné un valeur AVION parce que le numéro de paramètre est inférièure au numéro possible!" << endl;
-			return AVION;
-	}
-} // ----- Fin de getEnumDuTransport
-
-int TrajSimp::getNumeroMoyenTransport() const
-{
-#ifdef MAP
-	cout << "[DEBUG - TrajSimp] Appel au getNumeroMoyenTransport" << endl;
-#endif
-	switch (mt) {
-		case AVION:
-			return 1;
-			break;
-		case BATEAU:
-			return 2;
-			break;
-		case AUTO:
-			return 3;
-			break;
-		case TRAIN:
-			return 4;
-			break;
-		default:
-			cout << "[ERREUR] Moyen du transport inconnu!" << endl;
-			return -1;
-	}
-} // ----- Fin de getNumeroMoyenTransport
-
 string TrajSimp::toString() const
 {
 #ifdef MAP
 	cout << "[DEBUG - TrajSimp] Appel au toString" << endl;
 #endif
 	string tmp = Traj::toString();
-	tmp.append(to_string(getNumeroMoyenTransport()));
+	tmp.append(to_string((int) mt));
 	return tmp;
 } // ----- Fin de toString
+
+MOY_TRANS TrajSimp::getMoyenTransport() const
+{
+	return mt;
+} // ----- Fin de getMoyenTransport
 
 
 //------------------------------------------------- Surcharge d'opérateurs
