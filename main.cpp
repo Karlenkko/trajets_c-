@@ -5,6 +5,7 @@
 #include "TrajComp.h"
 #include "TrajSimp.h"
 #include "Cata.h"
+
 using namespace std;
 
 
@@ -116,7 +117,8 @@ bool sauvegarde(Cata* cata, string nomFichier, bool doitEtreSauvegarde(const Tra
 	int i;
 	for (i = 0; i < cata -> getUsed(); i++) {
 		if (doitEtreSauvegarde(liste[i]) && fic.good()) {
-			fic << liste[i] -> toString() << endl;
+			if(i != cata -> getUsed() - 1) fic << liste[i] -> toString() << endl;
+			else fic << liste[i] -> toString();
 		}
 	}
 
@@ -292,9 +294,9 @@ int main(){
 				break;
 			case '8':
 				b=0;
-				for(int i=0;i<nbr;i++){
-					delete ca->getListe()[i];
-				}
+				//for(int i=0;i<(ca->getUsed());i++){
+					//delete ca->getListe()[i];
+				//}
 				delete ca;
 				break;
 			default:
