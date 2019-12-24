@@ -7,8 +7,7 @@
 #include "Cata.h"
 #define MAP
 using namespace std;
-
-
+char villeCompare[100];
 void chercherSimp(Cata* ca){
 #ifdef MAP
 	cout << "[DEBUG - main] Appel au chercherSimp" << endl;
@@ -115,10 +114,12 @@ bool sauvegarde(Cata* cata, string nomFichier, bool doitEtreSauvegarde(const Tra
 
 	const Traj** liste = cata -> getListe();
 	int i;
+	bool first = true;
 	for (i = 0; i < cata -> getUsed(); i++) {
 		if (doitEtreSauvegarde(liste[i]) && fic.good()) {
-			if(i != cata -> getUsed() - 1) fic << liste[i] -> toString() << endl;
+			if(!first) fic << endl << liste[i] -> toString();
 			else fic << liste[i] -> toString();
+			first = false;
 		}
 	}
 
@@ -144,6 +145,7 @@ bool telecharge(Cata* cata, string nomFichier, bool doitEtreTelecharge(const Tra
 	string ligne;
 	while (!fic.eof()) {
 		getline(fic, ligne, '\n');
+		if(ligne == ""|| ligne == "\n") continue;
 		int cursor = ligne.find(';');
 		int nbrTrajets = stoi(ligne.substr(0, cursor));
 		ligne.erase(0, cursor + 1);
@@ -163,7 +165,7 @@ bool telecharge(Cata* cata, string nomFichier, bool doitEtreTelecharge(const Tra
 
 			Traj* trajet = new TrajSimp(tmpDepart.c_str(), tmpArrive.c_str(),(MOY_TRANS) tmpMT);
 			if(doitEtreTelecharge(trajet)) cata -> Ajouter(trajet);
-
+			else delete trajet;
 			#ifdef MAP
 				cout << "[IMPORT] Trajet simple trouvé: " << trajet -> toString() << endl;
 			#endif
@@ -193,7 +195,7 @@ bool telecharge(Cata* cata, string nomFichier, bool doitEtreTelecharge(const Tra
 
 			Traj* nouvTrajet = new TrajComp(trajetsArr, nbrTrajets);
 			if(doitEtreTelecharge(nouvTrajet)) cata -> Ajouter(nouvTrajet);
-
+			else delete nouvTrajet;
 			delete [] trajetsArr;
 			
 			#ifdef MAP
@@ -210,13 +212,21 @@ bool isSimple(const Traj* trajet){
 	else return false;
 }
 
+bool isDep(const Traj* trajet, const char* ville){
+	return (strcmp(ville, trajet->getDep()) == 0);
+}
+
+bool isArr(const Traj* trajet, const char* ville){
+	return (strcmp(ville, trajet->getArr()) == 0);
+}
+
 int main(){
 	int nbr=0,b=1;
 	char n;
 	Cata* ca = new Cata();
 
 	string nomFichier = "Catalogue.csv";
-
+	
 	cout<<"<Catalogue de trajet>"<<endl;
 	while(b==1){
 		cout<<"Composer les chiffres pour faire des instructions."<<endl;
@@ -252,6 +262,8 @@ int main(){
 				cout<<"1.Sauvegarde tous trajets."<<endl;
 				cout<<"2.Sauvegarde tous trajets simples."<<endl;
 				cout<<"3.Sauvegarde tous trajets composés."<<endl;
+				cout<<"4.Sauvegarde selon ville de depart."<<endl;
+				cout<<"5.Sauvegarde selon ville d'arrivee."<<endl;
 				cout<<"8.Terminer."<<endl;
 				cin>>n;
 				switch(n){
@@ -268,6 +280,20 @@ int main(){
 							return (!isSimple(trajet));
 						});
 						break;
+					case '4':
+						cout<<"Saisir la ville de depart"<<endl;
+						cin>>villeCompare;
+						sauvegarde(ca, nomFichier, [](const Traj* trajet) -> bool {
+							return isDep(trajet, villeCompare);
+						});
+						break;
+					case '5':
+						cout<<"Saisir la ville d'arrivee"<<endl;
+						cin>>villeCompare;
+						sauvegarde(ca, nomFichier, [](const Traj* trajet) -> bool {
+							return isArr(trajet, villeCompare);
+						});
+						break;
 					case '8':
 						break;
 					default:
@@ -279,6 +305,8 @@ int main(){
 				cout<<"1.Télécharge tous trajets."<<endl;
 				cout<<"2.Télécharge tous trajets simples."<<endl;
 				cout<<"3.Télécharge tous trajets composés."<<endl;
+				cout<<"4.Télécharge selon ville de depart."<<endl;
+				cout<<"5.Télécharge selon ville d'arrivee."<<endl;
 				cout<<"8.Terminer."<<endl;
 				cin>>n;
 				switch(n){
@@ -295,6 +323,20 @@ int main(){
 						telecharge(ca, nomFichier, [](const Traj* trajet) -> bool {
 							return (!isSimple(trajet));
 							//return true; // TODO
+						});
+						break;
+					case '4':
+						cout<<"Saisir la ville de depart"<<endl;
+						cin>>villeCompare;				
+						telecharge(ca, nomFichier, [](const Traj* trajet) -> bool {
+							return isDep(trajet, villeCompare);
+						});
+						break;
+					case '5':
+						cout<<"Saisir la ville d'arrivee"<<endl;
+						cin>>villeCompare;					
+						telecharge(ca, nomFichier, [](const Traj* trajet) -> bool {
+							return isArr(trajet, villeCompare);
 						});
 						break;
 					case '8':
