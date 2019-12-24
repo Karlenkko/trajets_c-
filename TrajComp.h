@@ -46,7 +46,7 @@ public:
 
     virtual string toString() const;
 
-
+	virtual int getTaille() const;
 //-------------------------------------------- Constructeurs - destructeur
     TrajComp ( const TrajComp & unTrajComp );
     // Mode d'emploi (constructeur de copie) :
@@ -79,7 +79,7 @@ private:
     
 //----------------------------------------------------- Attributs protégés
 	const Traj** liste;
-	int taille; //Noter la taille de la liste pour faciliter l'affichage.
+	//int taille; //Noter la taille de la liste pour faciliter l'affichage.
 	
 };
 

@@ -5,7 +5,7 @@
 #include "TrajComp.h"
 #include "TrajSimp.h"
 #include "Cata.h"
-
+#define MAP
 using namespace std;
 
 
@@ -162,7 +162,7 @@ bool telecharge(Cata* cata, string nomFichier, bool doitEtreTelecharge(const Tra
 			ligne.erase(0, cursor + 1);
 
 			Traj* trajet = new TrajSimp(tmpDepart.c_str(), tmpArrive.c_str(),(MOY_TRANS) tmpMT);
-			cata -> Ajouter(trajet);
+			if(doitEtreTelecharge(trajet)) cata -> Ajouter(trajet);
 
 			#ifdef MAP
 				cout << "[IMPORT] Trajet simple trouvé: " << trajet -> toString() << endl;
@@ -192,7 +192,7 @@ bool telecharge(Cata* cata, string nomFichier, bool doitEtreTelecharge(const Tra
 			}
 
 			Traj* nouvTrajet = new TrajComp(trajetsArr, nbrTrajets);
-			cata -> Ajouter(nouvTrajet);
+			if(doitEtreTelecharge(nouvTrajet)) cata -> Ajouter(nouvTrajet);
 
 			delete [] trajetsArr;
 			
@@ -204,6 +204,11 @@ bool telecharge(Cata* cata, string nomFichier, bool doitEtreTelecharge(const Tra
 	fic.close();
 	return true;
 } // ----- Fin de telecharge
+
+bool isSimple(const Traj* trajet){
+	if (trajet->getTaille() == 1) return true; // TODO
+	else return false;
+}
 
 int main(){
 	int nbr=0,b=1;
@@ -255,12 +260,14 @@ int main(){
 						break;
 					case '2':
 						sauvegarde(ca, nomFichier, [](const Traj* trajet) -> bool {
-							return true; // TODO
+							return isSimple(trajet);
 						});
+						break;
 					case '3':
 						sauvegarde(ca, nomFichier, [](const Traj* trajet) -> bool {
-							return true; // TODO
+							return (!isSimple(trajet));
 						});
+						break;
 					case '8':
 						break;
 					default:
@@ -280,12 +287,16 @@ int main(){
 						break;
 					case '2':
 						telecharge(ca, nomFichier, [](const Traj* trajet) -> bool {
-							return true; // TODO
+							return isSimple(trajet);
+							//return true; // TODO
 						});
+						break;
 					case '3':
 						telecharge(ca, nomFichier, [](const Traj* trajet) -> bool {
-							return true; // TODO
+							return (!isSimple(trajet));
+							//return true; // TODO
 						});
+						break;
 					case '8':
 						break;
 					default:

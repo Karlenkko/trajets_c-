@@ -64,6 +64,9 @@ MOY_TRANS TrajSimp::getMoyenTransport() const
 	return mt;
 } // ----- Fin de getMoyenTransport
 
+int TrajSimp::getTaille() const{
+	return taille;
+} // ----- Fin de getTaille
 
 //------------------------------------------------- Surcharge d'opérateurs
 /*TrajSimp & TrajSimp::operator = ( const TrajSimp & unTrajSimp )
@@ -88,7 +91,7 @@ TrajSimp::TrajSimp ( const TrajSimp & unTrajSimp )
 	this->villeArr =new char[longeurArr+1];
 	strcpy(this->villeArr,unTrajSimp.villeArr);
 	this->mt=unTrajSimp.mt;
-	
+	this->taille = 1;
 } //----- Fin de TrajSimp (constructeur de copie)
 
 

@@ -48,6 +48,7 @@ public:
     //
     // Contrat :
     //
+    virtual int getTaille() const;
 
 //------------------------------------------------- Surcharge d'opérateurs
     //TrajSimp & operator = ( const TrajSimp & unTrajSimp );

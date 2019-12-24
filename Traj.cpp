@@ -29,6 +29,7 @@ void Traj::Afficher()const{
 #ifdef MAP
 	cout << "[DEBUG - Traj] Appel de'Afficher" << endl;
 #endif
+	
 	cout<<"Ville de depart: "<<villeDep<<endl;
 	cout<<"Ville d'arrivee: "<<villeArr<<endl;
 } // ----- Fin d'Afficher
@@ -40,6 +41,10 @@ char* Traj::getDep()const{
 char* Traj::getArr()const{
 	return villeArr;
 } // ----- Fin de getArr
+
+int Traj::getTaille() const{
+	return taille;
+} // ----- Fin de getTaille
 
 string Traj::toString() const
 {
@@ -70,6 +75,7 @@ Traj::Traj ( const Traj & unTraj )
 	int longeurArr = strlen(unTraj.villeArr);
 	this->villeArr =new char[longeurArr+1];
 	strcpy(this->villeArr,unTraj.villeArr);
+	this->taille = unTraj.taille;
 } //----- Fin de Traj (constructeur de copie)
 
 
@@ -86,6 +92,7 @@ Traj::Traj (const char* villeDep, const char* villeArr)
 	int longeurArr = strlen(villeArr);
 	this->villeArr =new char[longeurArr+1 ];
 	strcpy(this->villeArr,villeArr);
+	this->taille = 1;
 } //----- Fin de Traj
 
 

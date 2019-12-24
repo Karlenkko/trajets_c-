@@ -54,7 +54,7 @@ public:
     //
     // Contrat :
     // Non
-
+	virtual int getTaille() const;
 
 //------------------------------------------------- Surcharge d'opérateurs
     //Traj & operator = ( const Traj & unTraj );
@@ -91,6 +91,7 @@ protected:
 //----------------------------------------------------- Attributs protégés
 	char* villeDep;
 	char* villeArr;
+	int taille;
 };
 
 //-------------------------------- Autres définitions dépendantes de <Traj>

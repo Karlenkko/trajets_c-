@@ -49,6 +49,9 @@ string TrajComp::toString() const
 	return tmp;
 }// ----- Fin de toString
 
+int TrajComp::getTaille() const{
+	return taille;
+} // ----- Fin de getTaille
 
 //------------------------------------------------- Surcharge d'opérateurs
 /*TrajComp & TrajComp::operator = ( const TrajComp & unTrajComp )
