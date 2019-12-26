@@ -5,9 +5,12 @@
 #include "TrajComp.h"
 #include "TrajSimp.h"
 #include "Cata.h"
-#define MAP
+//#define MAP
 using namespace std;
 char villeCompare[100];
+int currNum = 0;
+int rangeN = 1;
+int rangeM = 0;
 void chercherSimp(Cata* ca){
 #ifdef MAP
 	cout << "[DEBUG - main] Appel au chercherSimp" << endl;
@@ -141,10 +144,10 @@ bool telecharge(Cata* cata, string nomFichier, bool doitEtreTelecharge(const Tra
 #endif
 	ifstream fic;
 	fic.open(nomFichier);
-
 	string ligne;
 	while (!fic.eof()) {
 		getline(fic, ligne, '\n');
+		
 		if(ligne == ""|| ligne == "\n") continue;
 		int cursor = ligne.find(';');
 		int nbrTrajets = stoi(ligne.substr(0, cursor));
@@ -162,13 +165,14 @@ bool telecharge(Cata* cata, string nomFichier, bool doitEtreTelecharge(const Tra
 			cursor = ligne.find('\n');
 			int tmpMT = stoi(ligne.substr(0, cursor));
 			ligne.erase(0, cursor + 1);
-
+			
 			Traj* trajet = new TrajSimp(tmpDepart.c_str(), tmpArrive.c_str(),(MOY_TRANS) tmpMT);
-			if(doitEtreTelecharge(trajet)) cata -> Ajouter(trajet);
-			else delete trajet;
+			
 			#ifdef MAP
 				cout << "[IMPORT] Trajet simple trouvé: " << trajet -> toString() << endl;
 			#endif
+			if(doitEtreTelecharge(trajet)) cata -> Ajouter(trajet);
+			else delete trajet;
 		} else { // trajet composé
 			const Traj** trajetsArr = new const Traj*[nbrTrajets];
 			int i;
@@ -194,13 +198,14 @@ bool telecharge(Cata* cata, string nomFichier, bool doitEtreTelecharge(const Tra
 			}
 
 			Traj* nouvTrajet = new TrajComp(trajetsArr, nbrTrajets);
+			#ifdef MAP
+				cout << "[IMPORT] Trajet composé trouvé: " << nouvTrajet -> toString() << endl;
+			#endif
 			if(doitEtreTelecharge(nouvTrajet)) cata -> Ajouter(nouvTrajet);
 			else delete nouvTrajet;
 			delete [] trajetsArr;
 			
-			#ifdef MAP
-				cout << "[IMPORT] Trajet composé trouvé: " << nouvTrajet -> toString() << endl;
-			#endif
+			
 		}	
 	}
 	fic.close();
@@ -218,6 +223,18 @@ bool isDep(const Traj* trajet, const char* ville){
 
 bool isArr(const Traj* trajet, const char* ville){
 	return (strcmp(ville, trajet->getArr()) == 0);
+}
+
+void getNM (){
+	string temp;
+	do{
+		cout<< "Saisir n"<< endl;
+		cin>>temp;
+		rangeN = stoi(temp);
+		cout<< "Saisir m"<< endl;
+		cin>>temp;
+		rangeM = stoi(temp);
+	}while (rangeM - rangeN + 1 < 1);
 }
 
 int main(){
@@ -264,6 +281,7 @@ int main(){
 				cout<<"3.Sauvegarde tous trajets composés."<<endl;
 				cout<<"4.Sauvegarde selon ville de depart."<<endl;
 				cout<<"5.Sauvegarde selon ville d'arrivee."<<endl;
+				cout<<"6.Sauvegarde selon un intervalle."<<endl;
 				cout<<"8.Terminer."<<endl;
 				cin>>n;
 				switch(n){
@@ -294,6 +312,15 @@ int main(){
 							return isArr(trajet, villeCompare);
 						});
 						break;
+					case '6':
+						getNM();
+						currNum = 0;
+						sauvegarde(ca, nomFichier, [](const Traj* trajet) -> bool {
+							currNum ++;
+							if((currNum - 1) >= rangeN && (currNum - 1) <= rangeM) return true;
+							else return false;
+						});
+						break;
 					case '8':
 						break;
 					default:
@@ -307,6 +334,7 @@ int main(){
 				cout<<"3.Télécharge tous trajets composés."<<endl;
 				cout<<"4.Télécharge selon ville de depart."<<endl;
 				cout<<"5.Télécharge selon ville d'arrivee."<<endl;
+				cout<<"6.Télécharge selon un intervalle."<<endl;
 				cout<<"8.Terminer."<<endl;
 				cin>>n;
 				switch(n){
@@ -337,6 +365,18 @@ int main(){
 						cin>>villeCompare;					
 						telecharge(ca, nomFichier, [](const Traj* trajet) -> bool {
 							return isArr(trajet, villeCompare);
+						});
+						break;
+					case '6':
+						getNM();
+						currNum = 0;
+						telecharge(ca, nomFichier, [](const Traj* trajet) -> bool {
+							currNum ++;
+							cout<< rangeN<<endl;
+							cout<<rangeM<<endl;
+							cout << ((currNum - 1) >= rangeN && (currNum - 1) <= rangeM)<<endl;
+							if((currNum - 1) >= rangeN && (currNum - 1) <= rangeM) return true;
+							else return false;
 						});
 						break;
 					case '8':
